@@ -97,7 +97,7 @@ Jobs="\j"
 
 export PS1='${debian_chroot:+($debian_chroot)}\u@\h:$(git branch &>/dev/null;\
 if [ $? -eq 0 ]; then \
-  echo "$(echo `git status` | grep "nothing to commit" > /dev/null 2>&1; \
+  echo "$(echo `LANG=C git status` | grep "nothing to commit" > /dev/null 2>&1; \
   if [ "$?" -eq "0" ]; then \
     # @4 - Clean repository - nothing to commit
     echo "'$Green'"$(__git_ps1 " (%s)"); \
