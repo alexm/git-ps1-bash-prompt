@@ -97,13 +97,20 @@ Jobs="\j"
 
 export PS1='${debian_chroot:+($debian_chroot)}\u@\h:$(git branch &>/dev/null;\
 if [ $? -eq 0 ]; then \
-  echo "$(echo `LANG=C git status` | grep "nothing to commit" > /dev/null 2>&1; \
+  _GIT_STATUS=`LANG=C git status`; \
+  echo "$(echo "$_GIT_STATUS" | grep "nothing to commit" > /dev/null 2>&1; \
   if [ "$?" -eq "0" ]; then \
     # @4 - Clean repository - nothing to commit
     echo "'$Green'"$(__git_ps1 " (%s)"); \
   else \
-    # @5 - Changes to working tree
-    echo "'$IRed'"$(__git_ps1 " {%s}"); \
+    echo "$_GIT_STATUS" | grep "nothing added to commit but untracked files present" > /dev/null 2>&1; \
+    if [ "$?" -eq "0" ]; then \
+      # @5 - Changes to working tree
+      echo "'$IBlue'"$(__git_ps1 " {%s}"); \
+    else \
+      # @5 - Changes to working tree
+      echo "'$IRed'"$(__git_ps1 " {%s}"); \
+    fi; \
   fi) '$Color_Off$PathShort'\$ "; \
 else \
   # @2 - Prompt when not in GIT repo
