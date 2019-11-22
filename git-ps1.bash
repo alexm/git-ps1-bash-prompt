@@ -114,5 +114,5 @@ if [ $? -eq 0 ]; then \
   fi) '$Color_Off$PathShort'\$ "; \
 else \
   # @2 - Prompt when not in GIT repo
-  echo "'$Color_Off$PathShort'\$ "; \
+  echo "'$Color_Off$PathFull'\$ "; \
 fi)'
